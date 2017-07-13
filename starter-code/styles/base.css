@@ -1,5 +1,7 @@
 /* TODO: Add some coordinated colors to make the blog more distinguished:
-         Use an accent color for all links, and remove their underline. */
+         Use an accent color for all links, and remove their underline.
+  Estimated time 4 mins it took 10 mins
+*/
 
 body {
   line-height: 1.5;
@@ -35,4 +37,6 @@ a:hover, a:focus {
 }
 
 a:visited {
+  text-decoration: overline;
+  color: black;
 }
