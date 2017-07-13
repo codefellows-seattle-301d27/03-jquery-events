@@ -40,11 +40,14 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
+      $('article').hide();
+      $('article[data-author="' + $(this).val() +'"]').fadeIn('slow');
+
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-
+      $('article').not('.template').fadeIn('slow');
     }
     $('#category-filter').val('');
   });
@@ -55,7 +58,15 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
-
+  $('#category-filter').on('change', function() {
+    if ($(this).val()) {
+      $('article').hide();
+      $('article[data-category="' + $(this).val() +'"]').fadeIn('slow');
+    } else {
+      $('article').not('.template').fadeIn('slow');
+    }
+    $('#author-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function() {
@@ -64,8 +75,14 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
-
-
+  $('.main-nav').on('click', 'li', function(){
+    $('.tab-content').hide();
+    if ($(this).attr('data-content') === 'about') {
+      $('#about').fadeIn('slow');
+    } else if ($(this).attr('data-content') === 'articles') {
+      $('#articles').fadeIn('slow');
+    }
+  });
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
 
@@ -78,11 +95,31 @@ articleView.setTeasers = function() {
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
 
-  // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+  $('#articles').on('click', 'article', function(event){
+    event.preventDefault();
 
+    $(this).find('.article-body *:nth-of-type(n+2)').toggle();
+
+    var showing = $(this).attr('data-showing');
+    var $button = $(this).find('.read-on');
+
+    if (showing === 'true') {
+      $(this).attr('data-showing', 'false');
+      $button.html('Read on &rarr;');
+    } else if (showing === 'false'){
+      $(this).attr('data-showing', 'true');
+      $button.html('Show Less &rarr;');
+    }
+  });
+
+  // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
-
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
 })
