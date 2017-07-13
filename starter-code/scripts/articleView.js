@@ -96,7 +96,8 @@ articleView.setTeasers = function() {
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
   // Completed - finished in about 20 minutes after reading jQuery docs
-  $('.read-on').on('click', function() {
+  $('.read-on').on('click', function(event) {
+    event.preventDefault();
     $(this).parent().find('*:nth-of-type(n+2)').show();
   });
 
