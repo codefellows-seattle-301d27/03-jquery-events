@@ -41,9 +41,9 @@ articleView.handleAuthorFilter = function() {
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       //done. time spent: 30mins;
-      $('article').attr('data-category').hide();
-
-
+      $('article').hide();
+      // show authorname article
+      $('article').
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
@@ -88,5 +88,6 @@ articleView.setTeasers = function() {
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
+
 
 })
