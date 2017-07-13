@@ -66,14 +66,14 @@ articleView.handleCategoryFilter = function() {
     //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
     //         onto it.
     if ($(this).val()) {
-      console.log($(this).val());
+      ($(this).val());
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       // done, took about 5min
       $('article').hide();
       var $matchingCategory = $(this).val();
-      console.log($matchingCategory);
+      ($matchingCategory);
       $('article[data-category="'+ $matchingCategory +'"]').fadeIn();
 
     } else {
