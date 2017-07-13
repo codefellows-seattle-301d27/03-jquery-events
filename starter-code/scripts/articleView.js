@@ -94,8 +94,23 @@ articleView.handleMainNav = function() {
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked
 
+  //this took about 30min... done!
+  $('nav .tab').on('click', function() {
+    $('.tab-content').hide();
+    var $txt = $(this).data('content');
+    console.log($txt);
 
-  $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
+    if ($txt === 'articles') {
+      $('#articles').show(1000);
+    } else {
+      $('#about').show(1000);
+    }
+  });
+
+  //
+
+
+  // $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
 
 articleView.setTeasers = function() {
@@ -116,4 +131,5 @@ $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
+  articleView.handleMainNav();
 })
