@@ -49,6 +49,10 @@ articleView.handleAuthorFilter = function() {
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
+      // Estimated time : 5 mins, It actually took:
+      // if ($('article[data-author="'+ authorName +'"]').length === 0) {
+      //   $('article').fadeIn();
+      // }
 
     }
     $('#category-filter').val('');
@@ -60,8 +64,16 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
-
-};
+  // Estimated 20 mins, It actually took : 30 mins
+  $('#category-filter').on('change', function() {
+    var category = $(this).val()
+    if (category) {
+      $('article').fadeOut();
+      var selector = 'article[data-category="'+ category +'"]'
+      $(selector).fadeIn();
+    }
+  })
+}
 
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
