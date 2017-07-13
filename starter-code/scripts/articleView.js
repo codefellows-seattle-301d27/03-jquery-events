@@ -97,19 +97,18 @@ articleView.setTeasers = function() {
 
   $('#articles').on('click', 'article', function(event){
     event.preventDefault();
-    console.log($(this))
+
     $(this).find('.article-body *:nth-of-type(n+2)').toggle();
+
     var showing = $(this).attr('data-showing');
-    console.log('showing var = ' + showing);
     var $button = $(this).find('.read-on');
+
     if (showing === 'true') {
       $(this).attr('data-showing', 'false');
       $button.html('Read on &rarr;');
-      console.log('inside true');
     } else if (showing === 'false'){
       $(this).attr('data-showing', 'true');
       $button.html('Show Less &rarr;');
-      console.log('inside false');
     }
   });
 
