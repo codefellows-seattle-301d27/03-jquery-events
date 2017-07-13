@@ -42,11 +42,6 @@ articleView.handleAuthorFilter = function() {
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       // DONE: Expected - 30 min | Actual - 1 hr
-      // if($('address').children().text() !== $(this).val()){
-      //   $('article .template').hide();
-      // }else{
-      //   $('article .template').fadeIn('slow');
-      // }
       $('article').hide();
       $('article[data-author="' + $(this).val() +'"]').fadeIn('slow');
     }
@@ -59,8 +54,16 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
-
+  // DONE: Expected - 15 min | Actual - 5 min
+  $('#category-filter').on('change', function() {
+    if($(this).val()){
+      $('article').hide();
+      $('article[data-category="' + $(this).val() +'"]').fadeIn('slow');
+    }
+    $('#author-filter').val('');
+  });
 };
+
 
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
@@ -90,4 +93,5 @@ articleView.setTeasers = function() {
 $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
 })
