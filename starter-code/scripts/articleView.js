@@ -84,14 +84,16 @@ articleView.handleMainNav = function() {
   //  Estimated time: 15 mins, It actually took: 25 mins
   $('.tab').on('click', function(){
     let tabName = $(this).find('a').attr('class')
+    $('.tab').css('background-color', 'transparent');
     if (tabName === 'icon-home') {
+      $(this).css('background-color', 'yellow');
       $('#about').fadeOut();
       $('#articles').fadeIn();
     } else if (tabName === 'icon-address-book') {
+      $(this).css('background-color', 'yellow');
       $('#articles').fadeOut();
       $('#about').fadeIn();
     }
-
   })
 
 

@@ -3,11 +3,6 @@
   Estimated time 4 mins it took 10 mins
 */
 
-a {
-  color: purple;
-  text-decoration: none;
-}
-
 body {
   line-height: 1.5;
   font-size: 100%;
@@ -42,4 +37,6 @@ a:hover, a:focus {
 }
 
 a:visited {
+  text-decoration: overline;
+  color: black;
 }
