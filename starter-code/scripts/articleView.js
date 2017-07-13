@@ -108,12 +108,22 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+  // Estimated time 5 mins, it took us 15 minutes
 
-  $('.read-on').on('click', function(){
-    $(this).parents().first().find('* :nth-of-type(n+2)').show()
-    console.log('called')
-    console.log(this)
+
+  $('.read-on').on('click', function(e){
+    e.preventDefault();
+    console.log($(this).text())
+    if ($(this).text()[0] === 'R') {
+      $(this).parents().first().find('* :nth-of-type(n+2)').show()
+      $(this).text('Show Less')
+    } else if ($(this).text()[0] === 'S'){
+      $(this).parents().first().find('* :nth-of-type(n+2)').hide()
+      $(this).html('Read on &rarr;')
+    }
   })
+
+
 
 
 };
