@@ -42,7 +42,7 @@ articleView.handleAuthorFilter = function() {
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       //done. time spent: 30mins;
       $('article').hide();
-      // show authorname article
+
       $('article[data-author="' + $(this).val() + '"]').fadeIn();
 
     } else {
@@ -95,13 +95,16 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
+  // Completed - finished in about 20 minutes after reading jQuery docs
+  $('.read-on').on('click', function() {
+    $(this).parent().find('*:nth-of-type(n+2)').show();
+  });
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-  $('.read-on').on('click', function() {
-  });
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
+// Completed - finished in about 2 minutes
 $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
