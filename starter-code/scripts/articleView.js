@@ -92,8 +92,8 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   $('.read-on').on('click', function() {
-
     $(this).parents('article').find('.article-body *:nth-of-type(n+2)').show();
+    $(this).hide();
   });
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 
