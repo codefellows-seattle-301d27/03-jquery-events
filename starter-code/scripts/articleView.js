@@ -42,13 +42,15 @@ articleView.handleAuthorFilter = function() {
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       // estimated time 25 min actual time 40 min
-      $('article').hide();
+      $('article').fadeOut();
 
-      $('article[data-author="'+ authorName +'"]').show();
+      $('article[data-author="'+ authorName +'"]').fadeIn();
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
+      // Estimated time : 5 mins, It actually took: 10 mins
+      $('article:not(.template)').fadeIn();
 
     }
     $('#category-filter').val('');
@@ -60,8 +62,18 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
-
-};
+  // Estimated 20 mins, It actually took : 30 mins
+  $('#category-filter').on('change', function() {
+    var category = $(this).val()
+    if (category) {
+      $('article').fadeOut();
+      var selector = 'article[data-category="'+ category +'"]'
+      $(selector).fadeIn();
+    } else {
+      $('article:not(.template)').fadeIn();
+    }
+  })
+}
 
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
@@ -69,6 +81,18 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
+  //  Estimated time: 15 mins, It actually took: 25 mins
+  $('.tab').on('click', function(){
+    let tabName = $(this).find('a').attr('class')
+    if (tabName === 'icon-home') {
+      $('#about').fadeOut();
+      $('#articles').fadeIn();
+    } else if (tabName === 'icon-address-book') {
+      $('#articles').fadeOut();
+      $('#about').fadeIn();
+    }
+
+  })
 
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
