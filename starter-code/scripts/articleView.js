@@ -40,11 +40,17 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
+      // done, took about an hour
+      $('article').hide();
+      var $matchingAuthor = $(this).val();
+      $('article[data-author="'+ $matchingAuthor +'"]').fadeIn();
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-
+      // done, took about 5 minutes
+      $('article').show();
+      $('.template').hide();
     }
     $('#category-filter').val('');
   });
@@ -55,7 +61,30 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
+  $('#category-filter').on('change', function() {
+    // REVIEW: Inside this function, "this" is the element that triggered the event handler function we're
+    //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
+    //         onto it.
+    if ($(this).val()) {
+      console.log($(this).val());
+      // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
+      //       and then show just the ones that match for the author that was selected.
+      //       Use an "attribute selector" to find those articles, and fade them in for the reader.
+      // done, took about 5min
+      $('article').hide();
+      var $matchingCategory = $(this).val();
+      console.log($matchingCategory);
+      $('article[data-category="'+ $matchingCategory +'"]').fadeIn();
 
+    } else {
+      // TODO: If the select box was changed to an option that is blank, we should
+      //       show all the articles, except the one article we are using as a template.
+      // done, took about 5 minutes
+      $('article').show();
+      $('.template').hide();
+    }
+    $('#category-filter').val('');
+  });
 };
 
 articleView.handleMainNav = function() {
@@ -63,8 +92,19 @@ articleView.handleMainNav = function() {
   //       Clicking any .tab element should hide all the .tab-content sections, and then reveal the
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
-  //       data available to you on the .tab element that was clicked.
+  //       data available to you on the .tab element that was clicked
 
+  //this took about 30min... done!
+  $('nav .tab').on('click', function() {
+    $('.tab-content').hide();
+    var $txt = $(this).data('content');
+
+    if ($txt === 'articles') {
+      $('#articles').show();
+    } else {
+      $('#about').show();
+    }
+  });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
@@ -72,6 +112,10 @@ articleView.handleMainNav = function() {
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
 
+  $('#articles').on('click', 'article', function(e){
+    e.preventDefault();
+    $(this).find('p').toggle();
+  })
   // TODO: Add an event handler to reveal all the hidden elements,
   //       when the .read-on link is clicked. You can go ahead and hide the
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
@@ -79,10 +123,15 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+  //done it took an hour
 
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
-
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
 })
