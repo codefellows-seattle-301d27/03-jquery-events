@@ -115,7 +115,6 @@ articleView.setTeasers = function() {
 
   $('.read-on').on('click', function(e){
     e.preventDefault();
-    console.log($(this).text())
     if ($(this).text()[0] === 'R') {
       $(this).parents().first().find('* :nth-of-type(n+2)').show()
       $(this).text('Show Less')
