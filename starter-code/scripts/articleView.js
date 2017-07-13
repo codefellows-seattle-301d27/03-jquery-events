@@ -109,6 +109,13 @@ articleView.setTeasers = function() {
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 
+  $('.read-on').on('click', function(){
+    $(this).parents().first().find('* :nth-of-type(n+2)').show()
+    console.log('called')
+    console.log(this)
+  })
+
+
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
