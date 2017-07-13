@@ -42,9 +42,9 @@ articleView.handleAuthorFilter = function() {
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       // estimated time 25 min actual time 40 min
-      $('article').hide();
+      $('article').fadeOut();
 
-      $('article[data-author="'+ authorName +'"]').show();
+      $('article[data-author="'+ authorName +'"]').fadeIn();
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
