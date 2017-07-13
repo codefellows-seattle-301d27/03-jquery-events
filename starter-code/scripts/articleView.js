@@ -81,6 +81,18 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
+  //  Estimated time: 15 mins, It actually took: 25 mins
+  $('.tab').on('click', function(){
+    let tabName = $(this).find('a').attr('class')
+    if (tabName === 'icon-home') {
+      $('#about').fadeOut();
+      $('#articles').fadeIn();
+    } else if (tabName === 'icon-address-book') {
+      $('#articles').fadeOut();
+      $('#about').fadeIn();
+    }
+
+  })
 
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
