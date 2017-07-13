@@ -49,10 +49,8 @@ articleView.handleAuthorFilter = function() {
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      // Estimated time : 5 mins, It actually took:
-      // if ($('article[data-author="'+ authorName +'"]').length === 0) {
-      //   $('article').fadeIn();
-      // }
+      // Estimated time : 5 mins, It actually took: 10 mins
+      $('article:not(.template)').fadeIn();
 
     }
     $('#category-filter').val('');
@@ -71,6 +69,8 @@ articleView.handleCategoryFilter = function() {
       $('article').fadeOut();
       var selector = 'article[data-category="'+ category +'"]'
       $(selector).fadeIn();
+    } else {
+      $('article:not(.template)').fadeIn();
     }
   })
 }
