@@ -1,6 +1,8 @@
 /* TODO: Add some coordinated colors to make the blog more distinguished:
          Use an accent color for all links, and remove their underline. */
 /*done time spent 15min*/
+/*Added coordinating colors to the a selector at the bottom of this page*/
+
 body {
   line-height: 1.5;
   font-size: 100%;
@@ -28,7 +30,7 @@ address {
 
 a, a:link, a:active {
   text-decoration: none;
-  color: #777;
+  color: rgb(224, 208, 57);
 }
 
 a:hover, a:focus {
@@ -36,4 +38,5 @@ a:hover, a:focus {
 }
 
 a:visited {
+  color: rgb(95, 96, 87);
 }
