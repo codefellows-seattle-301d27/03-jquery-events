@@ -13,7 +13,6 @@ articleView.populateFilters = function() {
       //       and then use that bit of text to create the option tag (in a variable named `optionTag`),
       //       that we can append to the #author-filter select element.
       authorName = $(this).attr('data-author');
-      console.log(authorName);
       optionTag = '<option value="' + authorName + '">' + authorName + '</option>';
 
       if ($('#author-filter option[value="' + authorName + '"]').length === 0) {
@@ -95,9 +94,11 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
-
+  $('#articles').on('click', function(event){
+    event.preventDefault();
+    $('.article-body *:nth-of-type(n+2)').show();
+  });
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
@@ -106,4 +107,5 @@ $(document).ready(function() {
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
   articleView.handleMainNav();
+  articleView.setTeasers();
 })
