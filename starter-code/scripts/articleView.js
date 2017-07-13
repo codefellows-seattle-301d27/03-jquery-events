@@ -98,24 +98,24 @@ articleView.handleMainNav = function() {
   $('nav .tab').on('click', function() {
     $('.tab-content').hide();
     var $txt = $(this).data('content');
-    console.log($txt);
 
     if ($txt === 'articles') {
-      $('#articles').show(1000);
+      $('#articles').show();
     } else {
-      $('#about').show(1000);
+      $('#about').show();
     }
   });
 
-  //
-
-
-  // $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
+  $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
 
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
 
+  $('#articles').on('click', 'article', function(e){
+    e.preventDefault();
+    $(this).find('p').toggle();
+  })
   // TODO: Add an event handler to reveal all the hidden elements,
   //       when the .read-on link is clicked. You can go ahead and hide the
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
@@ -123,6 +123,7 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+  //done it took an hour
 
 };
 
@@ -132,4 +133,5 @@ $(document).ready(function() {
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
   articleView.handleMainNav();
+  articleView.setTeasers();
 })
