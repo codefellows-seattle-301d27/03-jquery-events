@@ -68,8 +68,6 @@ articleView.handleCategoryFilter = function() {
     }
     $('#author-filter').val('');
   });
-
-
 };
 
 articleView.handleMainNav = function() {
@@ -78,8 +76,14 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
-
-
+  $('.main-nav').on('click', 'li', function(){
+    $('.tab-content').hide();
+    if ($(this).attr('data-content') === 'about') {
+      $('#about').fadeIn('slow');
+    } else if ($(this).attr('data-content') === 'articles') {
+      $('#articles').fadeIn('slow');
+    }
+  });
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
 };
 
@@ -101,4 +105,5 @@ $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
+  articleView.handleMainNav();
 })
