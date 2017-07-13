@@ -48,8 +48,8 @@ articleView.handleAuthorFilter = function() {
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('article-template').hide();
       $('article').show();
+      $('article.template').hide();
 
     }
   });
@@ -66,8 +66,8 @@ articleView.handleCategoryFilter = function() {
       $('article').hide();
       $('article[data-category = "' + $(this).val() + '"]').fadeIn(2000);
     } else {
-      $('article-template').hide();
       $('article').show();
+      $('article.template').hide();
     }
   })
 };
@@ -79,7 +79,10 @@ articleView.handleMainNav = function() {
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
   $('.tab').click(function() {
-    $('.tab-content').hide();
+    $('.tab-content, #articles').show();
+    $('.tab-content, #about').hide();
+    var clickedValue = $(this).attr('data-content');
+    $('section[id = "' + clickedValue + '"]').show();
   });
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
@@ -93,7 +96,11 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
-
+  $('.read-on').click(function(event){
+    event.preventDefault();
+    $('.article-body *:nth-of-type(n+2)').show();
+    $('.read-on').hide();
+  })
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 
 };
@@ -103,4 +110,6 @@ $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
 })
