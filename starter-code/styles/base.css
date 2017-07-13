@@ -10,6 +10,7 @@ body {
 hr {
   margin: 1em;
   width: 80%;
+  border: 1px solid #0d3794;
 }
 
 /*TEXT STYLES
@@ -22,12 +23,17 @@ address {
   display: inline-block;
 }
 
+h1, h2 {
+  color: #036004;
+}
+
+
 /*LINK STYLES
 =======================================*/
 
 a, a:link, a:active {
   text-decoration: none;
-  color: #777;
+  color: #0d3794;
 }
 
 a:hover, a:focus {
