@@ -43,13 +43,10 @@ articleView.handleAuthorFilter = function() {
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
       // est: 15min act 45min
       $('article').hide();
-      //console.log($(this).val()) == Kevin Bacon
-      //console.log($('a#authorName')) //has the 22 authors
-      //console.log(authorName) == Kevin Bacon
       $('article[data-author="' + authorName +'"]').fadeIn();
     } else {
-      // TODO: If the select box was changed to an option that is blank, we should
-      //       show all the articles, except the one article we are using as a template.
+      // x TODO: If the select box was changed to an option that is blank, we should
+      //       show all the articles, except the one article we are using as a template. est 5 min, act 2 min
       $('article').show();
       $('.template').hide();
     }
@@ -58,12 +55,25 @@ articleView.handleAuthorFilter = function() {
 };
 
 articleView.handleCategoryFilter = function() {
-  // TODO: Just like we do for #author-filter above, we should handle change events on the #category-filter element.
-  //       When an option with a value is selected, hide all the articles, then reveal the matches.
-  //       When the blank (default) option is selected, show all the articles, except for the template.
-  //       Be sure to reset the #author-filter while you are at it!
+  $('#category-filter').on('change', function() {
+    let categoryName = $(this).val();
+    if (categoryName) {
+    // TODO: Just like we do for #author-filter above, we should handle change events on the #category-filter element.
+    //       When an option with a value is selected, hide all the articles, then reveal the matches.
+    //       When the blank (default) option is selected, show all the articles, except for the template.
+    //       Be sure to reset the #author-filter while you are at it!
+      $('article').hide();
+      $('article[data-category="' + categoryName +'"]').fadeIn();
+    } else {
+      // x TODO: If the select box was changed to an option that is blank, we should
+      //       show all the articles, except the one article we are using as a template. est 5 min, act 2 min
+      $('article').show();
+      $('.template').hide();
+    }
+    $('#author-filter').val('');
+  });
+}
 
-};
 
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
