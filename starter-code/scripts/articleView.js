@@ -36,14 +36,21 @@ articleView.handleAuthorFilter = function() {
     // REVIEW: Inside this function, "this" is the element that triggered the event handler function we're
     //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
     //         onto it.
+    var authorName = $(this).val();
     if ($(this).val()) {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
+      // estimated time 25 min actual time 40 min
+      $('article').fadeOut();
+
+      $('article[data-author="'+ authorName +'"]').fadeIn();
 
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
+      // Estimated time : 5 mins, It actually took: 10 mins
+      $('article:not(.template)').fadeIn();
 
     }
     $('#category-filter').val('');
@@ -55,8 +62,18 @@ articleView.handleCategoryFilter = function() {
   //       When an option with a value is selected, hide all the articles, then reveal the matches.
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
-
-};
+  // Estimated 20 mins, It actually took : 30 mins
+  $('#category-filter').on('change', function() {
+    var category = $(this).val()
+    if (category) {
+      $('article').fadeOut();
+      var selector = 'article[data-category="'+ category +'"]'
+      $(selector).fadeIn();
+    } else {
+      $('article:not(.template)').fadeIn();
+    }
+  })
+}
 
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
@@ -64,6 +81,20 @@ articleView.handleMainNav = function() {
   //       single .tab-content section that is associated with the clicked .tab element.
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
+  //  Estimated time: 15 mins, It actually took: 25 mins
+  $('.tab').on('click', function(){
+    let tabName = $(this).find('a').attr('class')
+    $('.tab').css('background-color', 'transparent');
+    if (tabName === 'icon-home') {
+      $(this).css('background-color', 'yellow');
+      $('#about').fadeOut();
+      $('#articles').fadeIn();
+    } else if (tabName === 'icon-address-book') {
+      $(this).css('background-color', 'yellow');
+      $('#articles').fadeOut();
+      $('#about').fadeIn();
+    }
+  })
 
 
   $('.main-nav .tab:first').click(); // Let's now trigger a click on the first .tab element, to set up the page.
@@ -79,10 +110,31 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+  // Estimated time 5 mins, it took us 15 minutes
+
+
+  $('.read-on').on('click', function(e){
+    e.preventDefault();
+    if ($(this).text()[0] === 'R') {
+      $(this).parents().first().find('* :nth-of-type(n+2)').show()
+      $(this).text('Show Less')
+    } else if ($(this).text()[0] === 'S'){
+      $(this).parents().first().find('* :nth-of-type(n+2)').hide()
+      $(this).html('Read on &rarr;')
+    }
+  })
+
+
+
 
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
+//estimated time 15 min, actual time 10 min
 $(document).ready(function() {
-
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
 })
