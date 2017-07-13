@@ -94,10 +94,25 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
-  $('#articles').on('click', function(event){
+
+  $('#articles').on('click', 'article', function(event){
     event.preventDefault();
-    $('.article-body *:nth-of-type(n+2)').show();
+    console.log($(this))
+    $(this).find('.article-body *:nth-of-type(n+2)').toggle();
+    var showing = $(this).attr('data-showing');
+    console.log('showing var = ' + showing);
+    var $button = $(this).find('.read-on');
+    if (showing === 'true') {
+      $(this).attr('data-showing', 'false');
+      $button.html('Read on &rarr;');
+      console.log('inside true');
+    } else if (showing === 'false'){
+      $(this).attr('data-showing', 'true');
+      $button.html('Show Less &rarr;');
+      console.log('inside false');
+    }
   });
+
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 };
 
