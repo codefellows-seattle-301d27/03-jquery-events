@@ -91,13 +91,20 @@ articleView.setTeasers = function() {
   //       process any .read-on clicks that happen within child nodes.
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-
+  // DONE: Estimated - 1 hr | Actual - 30 min
+  $('.read-on').on('click', function(){
+    event.preventDefault();
+    $('.article-body *:hidden').show();
+    $('.read-on').hide();
+  });
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
+// DONE: As others were done
 $(document).ready(function() {
   articleView.populateFilters();
   articleView.handleAuthorFilter();
   articleView.handleCategoryFilter();
   articleView.handleMainNav();
+  articleView.setTeasers();
 })
