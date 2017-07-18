@@ -33,6 +33,7 @@ articleView.populateFilters = function() {
 
 articleView.handleAuthorFilter = function() {
   $('#author-filter').on('change', function() {
+    $('#category-filter').val('');
     // REVIEW: Inside this function, "this" is the element that triggered the event handler function we're
     //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
     //         onto it.
@@ -44,13 +45,11 @@ articleView.handleAuthorFilter = function() {
 
       $('article').hide();
       $('article[data-author = "' + $(this).val() + '"]').fadeIn(2000);
-
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
       $('article').show();
       $('article.template').hide();
-
     }
   });
 };
@@ -61,7 +60,7 @@ articleView.handleCategoryFilter = function() {
   //       When the blank (default) option is selected, show all the articles, except for the template.
   //       Be sure to reset the #author-filter while you are at it!
   $('#category-filter').on('change', function() {
-
+    $('#author-filter').val('');
     if ($(this).val()) {
       $('article').hide();
       $('article[data-category = "' + $(this).val() + '"]').fadeIn(2000);
@@ -96,10 +95,20 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
-  $('.read-on').click(function(event){
+  $('article').click(function(event){
     event.preventDefault();
-    $('.article-body *:nth-of-type(n+2)').show();
-    $('.read-on').hide();
+    var $this = $(this);
+    var readOn = $this.find('.read-on');
+    var readOnText = readOn.html();
+    if (readOnText === 'Read on →') {
+      var hiddenElements = $this.find('.article-body *:nth-of-type(n+2)');
+      hiddenElements.show();
+      readOn.text('Show Less →');
+    } else if (readOnText === 'Show Less →') {
+      var shownElements = $this.find('.article-body *:nth-of-type(n+2)');
+      shownElements.hide();
+      readOn.text('Read on →');
+    }
   })
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 
